@@ -7,6 +7,3 @@
 
 - name: Browsers (firefox, et al)
   ansible.builtin.import_tasks: browsers.yml
-
-- name: Install jMeter
-  ansible.builtin.import_tasks: jmeter.yml
