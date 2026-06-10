@@ -8,7 +8,8 @@
   become: true
   ansible.builtin.shell: |
     set -o pipefail
-    curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin INSTALLER_NO_MODIFY_PATH=1 sh
+    curl -LsSf https://astral.sh/uv/install.sh |
+      env UV_INSTALL_DIR=/usr/local/bin INSTALLER_NO_MODIFY_PATH=1 sh
   args:
     creates: /usr/local/bin/uv
     executable: /bin/bash
