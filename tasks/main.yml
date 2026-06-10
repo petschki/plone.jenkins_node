@@ -2,6 +2,9 @@
 - name: Update and configure the system
   ansible.builtin.import_tasks: system.yml
 
+- name: Install Python interpreters
+  ansible.builtin.import_tasks: python.yml
+
 - name: Configure Jenkins user
   ansible.builtin.import_tasks: user.yml
 

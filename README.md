@@ -8,7 +8,9 @@ None.
 
 Role variables
 --------------
-None.
+* `python_versions`: list of Python versions to install with `uv` (default: 3.9 through 3.14).
+  Each version ends up as `/srv/pythonX.Y/bin/python3`.
+* `uv_python_install_dir`: where `uv` stores the interpreters (default: `/srv/uv`).
 
 Example playbook
 ----------------
@@ -29,21 +31,13 @@ Make a checkout of the repo and go to this directory.
 **Do not give a different name to the directory**:
 it must be called `plone.jenkins_node` otherwise some stuff (roles) cannot be found.
 
-Install the `ansible-galaxy` command.
+Install the `ansible` command.
 For example on Mac:
 
     brew install ansible
 
-You need to explicitly install some required galaxy roles (packages):
-
-    ansible-galaxy install -r roles.yml
-
-Currently this installs [`gforcada/ansible-compile-python`](https://github.com/gforcada/ansible-compile-python).
-We will want to switch to installing Pythons with `uv`, but for now this gets the job done.
-
-Please take a note of where this role gets installed.
-In my case it was in the parent directory.
-If you need to fix anything in the role, that is where you can edit things.
+The Python interpreters are installed with [`uv`](https://docs.astral.sh/uv/)
+(pre-built binaries, nothing gets compiled), so no extra galaxy roles are needed.
 
 Create an `inventory.yml` mentioning your host:
 
@@ -62,11 +56,10 @@ Now you can run the playbook:
 
 This does not make any changes yet, but may be a good initial test.
 
-After a while it may give an error like this:
-
-    Source '/tmp/py3.9.23.tar.xz' does not exist
-
-That just means that the `--check` option has lost its usefulness, so we run the command for real:
+Some tasks depend on the changes of earlier tasks (for example the Python
+symlinks need the interpreters that uv installs), so at some point `--check`
+gives an error and has lost its usefulness.
+Then we run the command for real:
 
     ansible-playbook -i inventory.yml ansible.yml
 

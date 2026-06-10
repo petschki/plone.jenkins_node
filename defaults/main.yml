@@ -1,4 +1,14 @@
 ---
+# Python interpreters installed with uv
+python_versions:
+  - "3.9"
+  - "3.10"
+  - "3.11"
+  - "3.12"
+  - "3.13"
+  - "3.14"
+uv_python_install_dir: /srv/uv
+
 firefox_version: 70.0.1-0ubuntu1
 firefox_file_name: "firefox-mozilla-build_{{ firefox_version }}_amd64.deb"
 firefox_url: "https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/{{ firefox_file_name }}"
