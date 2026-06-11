@@ -20,6 +20,14 @@ Example playbook
       roles:
          - { role: plone.jenkins_node }
 
+The role variables can be overridden in the playbook.
+For example to install a different node version:
+
+    - hosts: node5.jenkins.plone.org
+      roles:
+        - role: plone.jenkins_node
+          nvm_node_version: "24"
+
 Server playbook
 ---------------
 Looking for the ansible playbook for the jenkins master?
@@ -50,6 +58,8 @@ nodes:
 ```
 
 Change `ansible.yml` to refer to your host instead of `localhost`.
+Here you can also override role variables like `nvm_node_version`
+(see the example playbook above).
 It may be better to put `inventory.yml` and `ansible.yml` in a different directory that is not in this repo, or not under source control.
 
 Now you can run the playbook:
