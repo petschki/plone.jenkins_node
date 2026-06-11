@@ -11,6 +11,8 @@ Role variables
 * `python_versions`: list of Python versions to install with `uv` (default: 3.9 through 3.14).
   Each version ends up as `/srv/pythonX.Y/bin/python3`.
 * `uv_python_install_dir`: where `uv` stores the interpreters (default: `/srv/uv`).
+* `nvm_version`: version of [nvm](https://github.com/nvm-sh/nvm) to install for the jenkins user (default: `0.40.3`).
+* `nvm_node_version`: node version that gets installed and set as default via nvm (default: `22`).
 
 Example playbook
 ----------------
@@ -87,21 +89,14 @@ swapon /swapfile1
 echo "/swapfile1 none swap sw 0 0" >> /etc/fstab
 ```
 
-Also, we need newer node/npm versions to run robotframework tests.
-This should go in to ansible, but for now we will use nvm.
-Check https://github.com/nvm-sh/nvm for the latest nvm version.
+We need newer node/npm versions to run robotframework tests.
+The playbook installs nvm for the jenkins user and sets a default
+node version (see the `nvm_version` and `nvm_node_version` role
+variables). You can check it like this:
 
 ```
 sudo su -l jenkins
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-```
-
-Close and reopen the terminal so nvm is fully available.
-Then install newer versions, again as user jenkins:
-
-```
-nvm install --lts && nvm use --lts
-node --version; npm --version; yarn --version
+node --version; npm --version
 ```
 
 You should have as minimum node version 22.

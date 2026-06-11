@@ -8,5 +8,8 @@
 - name: Configure Jenkins user
   ansible.builtin.import_tasks: user.yml
 
+- name: Install nvm and node for the jenkins user
+  ansible.builtin.import_tasks: nvm.yml
+
 - name: Browsers (firefox, et al)
   ansible.builtin.import_tasks: browsers.yml
